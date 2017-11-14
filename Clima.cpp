@@ -15,12 +15,14 @@ int Clima::run() {
 
     EstadoDelClima *estado = getEstadoByCiudad("Buenos Aires");
 
-    Queue c(Identificadores::ID_CLIMA);
+    Queue clima(Identificadores::ID_CLIMA);
+    Queue servidor(Identificadores::ID_SERVIDOR);
+
     bool salir = false;
     std::cout << "Weather service starting" << std::endl;
     while (not salir) {
         msj pop;
-        c.recive(&pop, Identificadores::MSJ_CERRAR * -1);
+        clima.recive(&pop, Identificadores::MSJ_CLIMA);
         switch (pop.mtype) {
             case Identificadores::MSJ_CLIMA: {
 
@@ -39,7 +41,7 @@ int Clima::run() {
 
 
                 strcpy(pop.mensaje, result.c_str());
-                c.send(&pop);
+                servidor.send(&pop);
                 salir = true;
 
                 break;
@@ -49,7 +51,7 @@ int Clima::run() {
                 pop.from = getpid();
                 std::cout << pop.mensaje << std::endl;
                 strcpy(pop.mensaje, "Success");
-                c.send(&pop);
+                servidor.send(&pop);
                 salir = true;
                 break;
             }

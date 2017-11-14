@@ -9,20 +9,22 @@ using namespace std;
 int Cliente::run() {
 
 
-    Queue c(Identificadores::ID_SERVIDOR);
+    Queue server(Identificadores::ID_SERVIDOR);
+    Queue client(Identificadores::ID_CLIENTES);
+
 
     msj aux;
 
-    aux.mtype = Identificadores::MSJ_CLIMA;
+    aux.mtype = Identificadores::MSJ_CLIENTE_CLIMA;
     aux.from = getpid();
 
     strcpy(aux.mensaje, "Buenos Aires");
     std::cout << "Client sending" << std::endl;
 
-    c.send(&aux);
+    server.send(&aux);
 
     msj resp;
-    c.recive(&resp,getpid()*-1);
+    client.recive(&resp,getpid());
     std::cout << "CLIENT GETS " << resp.mensaje << std::endl;
 
 //    aux.mtype = Identificadores::MSJ_CERRAR;

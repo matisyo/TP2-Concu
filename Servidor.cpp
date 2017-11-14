@@ -11,24 +11,25 @@ using namespace std;
 
 int Servidor::run() {
 
-    //PASAR ESTO A CONSTANTES
 
-    Queue clients(Identificadores::ID_SERVIDOR);
+    Queue clients(Identificadores::ID_CLIENTES);
     Queue weatherService(Identificadores::ID_CLIMA);
+    Queue server(Identificadores::ID_SERVIDOR);
     bool salir = false;
     std::cout << "Server starting" << std::endl;
     while (not salir) {
         msj pop;
-        clients.recive(&pop, Identificadores::MSJ_CERRAR * -1);
+        server.recive(&pop, Identificadores::MSJ_CERRAR * -1);
         switch (pop.mtype) {
             case Identificadores::MSJ_ADMIN:
                 break;
-            case Identificadores::MSJ_CLIENTE:
+            case Identificadores::MSJ_CLIENTE_MONEDA:
                 break;
-            case Identificadores::MSJ_CLIMA: {
+            case Identificadores::MSJ_CLIENTE_CLIMA: {
                 long mtype_client = pop.from;
 
                 pop.from = getpid();
+                pop.mtype = Identificadores::MSJ_CLIMA;
                 std::cout << pop.mensaje << std::endl;
                 std::cout << "Mando el mensaje al service" << std::endl;
 
@@ -38,7 +39,7 @@ int Servidor::run() {
 
 
 
-                weatherService.recive(&wResponse, Identificadores::MSJ_CLIMA * -1);
+                server.recive(&wResponse, Identificadores::MSJ_CLIMA);
                 std::cout << "Recibo del service" << std::endl;
 
                 wResponse.from = getpid();

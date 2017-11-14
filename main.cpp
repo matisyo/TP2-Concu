@@ -11,7 +11,7 @@ int main() {
 
     pid_t serverId = fork();
 
-    if(serverId != 0){
+    if(serverId == 0){
 
         Servidor::run();
 
@@ -21,7 +21,7 @@ int main() {
     pid_t weatherSercviceId = fork();
 
 
-    if(weatherSercviceId == 0){
+    if(weatherSercviceId != 0){
 
         EstadoDelClima* estado1 = new EstadoDelClima("Buenos Aires", 10, 10, 10);
 
