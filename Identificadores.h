@@ -18,7 +18,9 @@ public:
     static const int ID_CLIMA = 1227;
     static const int MSJ_ADMIN = 1;
     static const int MSJ_CLIENTE = 2;
-    static const int MSJ_CERRAR = 3;
+    static const int MSJ_CLIMA = 3;
+    static const int MSJ_CERRAR = 4;
+
 
 };
 
