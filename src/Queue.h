@@ -4,18 +4,18 @@
 
 struct msj{
     long mtype;
-    long from;    
+    long from;
     char mensaje[255];
 };
 
 class Queue {
 private:
-	int qid ;
-public:	
-	Queue(int id);
+    int qid ;
+public:
+    Queue(int id);
     ~Queue();
     void send(const msj* mensaje);
-	void recive(msj *mensaje,long from);
+    void recive(msj *mensaje,long from);
 };
 
 
